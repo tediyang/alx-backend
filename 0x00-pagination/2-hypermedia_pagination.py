@@ -91,11 +91,11 @@ class Server:
         Returns:
             Dict[str, Any]: a dictionary with the above description
         """
-        assert isinstance(page, int) and isinstance(page_size, int)
-        assert page > 0 and page_size > 0
-
-        tot_pages: int = (len(self.dataset()) + page_size - 1) // page_size
         data: List[List] = self.get_page(page, page_size)
+        tot_pages: int = (len(self.dataset()) + page_size - 1) // page_size
+        """ math.ceil can also be used to get the tot_pages
+            math.ceil(len(self.__dataset) / page_size)
+        """
         prev_page: U[int, None] = None if (page - 1) < 1 else page - 1
         next_page: U[int, None] = None if (page + 1) > tot_pages else page + 1
 
