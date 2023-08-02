@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+"""
+    Simple Pagination using a class named Server and index range function
+"""
 import csv
-import math
 from typing import List, Tuple
 
 
