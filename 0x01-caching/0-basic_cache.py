@@ -37,8 +37,8 @@ class BasicCache(BaseCaching):
             Args:
                 key (str): the key
 
-        Returns:
-            Optional[Any]: value with any data type
+            Returns:
+                Optional[Any]: value with any data type
         """
         if key:
             return self.cache_data.get(key)
