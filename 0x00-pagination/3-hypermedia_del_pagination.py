@@ -64,17 +64,17 @@ class Server:
         old: int = len(data)
         new: int = len(data_new)
 
-        if old > new and (data[index] != data_new[index]):
+        if old > new and (data[index] != data_new.get(index)):
             diff = old - new
             for i in range(1, diff + 1):
-                if data[index + i] == data_new[index]:
+                if data[index + i] == data_new.get(index):
                     changed = i
-                    self.__dataset = self.__indexed_dataset
+                    self.__dataset = list(data_new.values())
                     break
 
         return {
             "index": index,
-            "data": data_new[index:index + page_size],
+            "data": list(data_new.values())[index:index + page_size],
             "page_size": page_size,
             "next_index": index + page_size + changed
         }
