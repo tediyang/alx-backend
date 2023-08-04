@@ -29,10 +29,10 @@ class FIFOCache(BaseCaching):
         """
         if key and item:
             self.cache_data[key] = item
-            if len(self.cache_data) > self.MAX_ITEMS:
-                first = sorted(self.cache_data.keys())[0]
-                self.cache_data.pop(first)
-                print("DISCARD: ", format(first))
+        if len(self.cache_data) > self.MAX_ITEMS:
+            first = sorted(self.cache_data.keys())[0]
+            self.cache_data.pop(first)
+            print("DISCARD: {}".format(first))
 
     def get(self, key: str) -> Optional[Any]:
         """
