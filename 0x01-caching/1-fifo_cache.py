@@ -11,7 +11,7 @@ class FIFOCache(BaseCaching):
         A class that uses first in first out for caching
 
     Args:
-        BaseCaching (_type_): _description_
+        BaseCaching (class): base caching model
     """
     def __init__(self) -> None:
         """
