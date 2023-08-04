@@ -2,7 +2,7 @@
 """
     A class that applies MRU caching system
 """
-from typing import Dict, Any, Optional as Opt
+from typing import Any, Optional as Opt
 from base_caching import BaseCaching
 
 
