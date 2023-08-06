@@ -36,9 +36,7 @@ def index() -> str:
     Returns:
         str: renders the template for display
     """
-    title: str = _("home_title")
-    header: str = _("home_header")
-    return render_template('./1-index.html', title=title, header=header)
+    return render_template('./3-index.html')
 
 
 if __name__ == "__main__":
