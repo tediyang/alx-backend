@@ -67,7 +67,7 @@ def get_user() -> Optional[Dict[str, Any]]:
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """ assign the user data to the global variable"""
     g.user = get_user()
 
