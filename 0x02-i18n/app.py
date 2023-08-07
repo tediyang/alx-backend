@@ -109,7 +109,7 @@ def before_request() -> None:
     time_now = pytz.utc.localize(dt.utcnow())
     time = time_now.astimezone(timezone(get_timezone()))
     locale.setlocale(locale.LC_TIME, (get_locale(), 'UTF-8'))
-    time_format = "%b %d, %Y %I:%M:%S %p"                  
+    time_format = "%b %d, %Y %I:%M:%S %p"
     g.time = time.strftime(time_format)
 
 
