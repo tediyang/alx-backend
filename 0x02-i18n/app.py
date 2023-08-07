@@ -4,12 +4,11 @@
 """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
-from typing import Optional, Dict, Any, Type
+from typing import Optional, Dict, Any
+import pytz
 from pytz import timezone, exceptions
-
-app = Flask(__name__)
-babel = Babel()
-
+from datetime import datetime as dt
+import locale
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -26,6 +25,13 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+""" configure app """
+app = Flask(__name__)
+babel = Babel(app)
+app.config.from_object(Config)
+
+
+@babel.localeselector
 def get_locale() -> str:
     """
     get the best matched language for the user
@@ -55,6 +61,7 @@ def get_locale() -> str:
     return 'en'
 
 
+@babel.timezoneselector
 def get_timezone() -> str:
     """
     get the timezone for the user
@@ -94,13 +101,16 @@ def get_user() -> Optional[Dict[str, Any]]:
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """ assign the user data to the global variable"""
     g.user = get_user()
 
-
-app.config.from_object(Config)
-babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
+    fmt = "%b %d, %Y, %I:%M:%S %p"
+    time_now = pytz.utc.localize(dt.utcnow())
+    time = time_now.astimezone(timezone(get_timezone()))
+    locale.setlocale(locale.LC_TIME, (get_locale(), 'UTF-8'))
+    time_format = "%b %d, %Y %I:%M:%S %p"                  
+    g.time = time.strftime(time_format)
 
 
 @app.route('/')
@@ -110,7 +120,7 @@ def index() -> str:
     Returns:
         str: renders the template for display
     """
-    return render_template('./7-index.html', user=g.user)
+    return render_template('./5-index.html', user=g.user, ctime=g.time)
 
 
 if __name__ == "__main__":
